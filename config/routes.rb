@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+
   get 'messages/index'
+  devise_for :users
   get 'welcome/index'
   get 'welcome/meow'
 

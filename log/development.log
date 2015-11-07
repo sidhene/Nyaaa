@@ -1,0 +1,891 @@
+  [1m[36m (44.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (5.1ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20151107185305)
+  [1m[35m (0.6ms)[0m  BEGIN
+  [1m[36m (20.6ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "user_name" character varying, "password" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (1.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151107185305"]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateFriendLists (20151107185600)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (6.4ms)[0m  [1mCREATE TABLE "friend_lists" ("id" serial primary key, "user_id" integer, "list" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (1.6ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151107185600"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateMessages (20151107190045)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (5.8ms)[0m  [1mCREATE TABLE "messages" ("id" serial primary key, "sender_id" integer, "receiver_id" integer, "body" character varying, "read" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151107190045"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (6.4ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'friend_lists'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (4.4ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'messages'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (4.5ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+
+
+Started GET "/" for ::1 at 2015-11-07 11:45:43 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/railties-4.2.4/lib/rails/templates/rails/welcome/index.html.erb (2.5ms)
+Completed 200 OK in 28ms (Views: 15.2ms | ActiveRecord: 0.0ms)
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddDeviseToUsers (20151107195623)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (21.8ms)[0m  [1mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (4.8ms)[0m  ALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL
+  [1m[36m (1.1ms)[0m  [1mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ADD "reset_password_sent_at" timestamp
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD "remember_created_at" timestamp[0m
+  [1m[35m (6.3ms)[0m  ALTER TABLE "users" ADD "sign_in_count" integer DEFAULT 0 NOT NULL
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD "current_sign_in_at" timestamp[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ADD "last_sign_in_at" timestamp
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD "current_sign_in_ip" inet[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "users" ADD "last_sign_in_ip" inet
+  [1m[36m (1.6ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20151107195623"]]
+  [1m[35m (4.2ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (8.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'friend_lists'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (7.8ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'messages'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (7.8ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+
+
+Started GET "/users/sign_up" for ::1 at 2015-11-07 12:07:28 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (1.8ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (47.3ms)
+Completed 200 OK in 1673ms (Views: 1626.8ms | ActiveRecord: 6.8ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:07:30 -0800
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-11-07 12:07:30 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:07:30 -0800
+
+
+Started GET "/users/sign_up" for ::1 at 2015-11-07 12:07:40 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (0.6ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (9.0ms)
+Completed 200 OK in 76ms (Views: 74.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/" for ::1 at 2015-11-07 12:07:45 -0800
+
+ActionController::RoutingError (No route matches [GET] "/users"):
+  actionpack (4.2.4) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.2.1) lib/web_console/middleware.rb:39:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.4) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.4) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.4) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.4) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.4) lib/rails/engine.rb:518:in `call'
+  railties (4.2.4) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/alightholder/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
+  /Users/alightholder/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
+  /Users/alightholder/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+
+
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.8ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.8ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/routes/_table.html.erb (3.5ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (132.2ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.5ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.8ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (85.9ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (180.8ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2015-11-07 12:17:11 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (1.0ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (21.2ms)
+Completed 200 OK in 146ms (Views: 123.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for ::1 at 2015-11-07 12:17:28 -0800
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"hSn7oNCIFY3o23U8Ot+WeLbjujf+Hb6BGy5L6ZevTt2L7GoOOptTCea7GmgVUUoFvbzzG85y9sWiPaXj03TzwQ==", "user"=>{"email"=>"sidhene@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mUser Exists (6.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'sidhene@gmail.com' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (0.3ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (12.3ms)
+Completed 200 OK in 364ms (Views: 83.3ms | ActiveRecord: 7.1ms)
+
+
+Started POST "/users" for ::1 at 2015-11-07 12:17:43 -0800
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gQtHXnMzWMQkakMmBRgQjmy10lrYNNf59OZCz02upQqPztbwmSAeQCoKLHIqlszzZ+qbduhbn71N9azFCXUYFg==", "user"=>{"email"=>"sidhene@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.7ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'sidhene@gmail.com' LIMIT 1
+  [1m[36mSQL (4.0ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "sidhene@gmail.com"], ["encrypted_password", "$2a$10$jgFjVdrPtH.KwNyhMaKnG.5Oi4WHS6mL8CB7rw7z/7A0nx5TCht5m"], ["created_at", "2015-11-07 20:17:43.909747"], ["updated_at", "2015-11-07 20:17:43.909747"]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (3.7ms)[0m  UPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "last_sign_in_ip" = $3, "current_sign_in_ip" = $4, "sign_in_count" = $5, "updated_at" = $6 WHERE "users"."id" = $7  [["last_sign_in_at", "2015-11-07 20:17:43.921338"], ["current_sign_in_at", "2015-11-07 20:17:43.921338"], ["last_sign_in_ip", "::1/128"], ["current_sign_in_ip", "::1/128"], ["sign_in_count", 1], ["updated_at", "2015-11-07 20:17:43.923412"], ["id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 149ms (ActiveRecord: 10.7ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:17:43 -0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/railties-4.2.4/lib/rails/templates/rails/welcome/index.html.erb (1.4ms)
+Completed 200 OK in 7ms (Views: 6.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/sign_in" for ::1 at 2015-11-07 12:17:51 -0800
+
+ActionController::RoutingError (No route matches [GET] "/sign_in"):
+  actionpack (4.2.4) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.2.1) lib/web_console/middleware.rb:39:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.4) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.4) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.4) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.4) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.4) lib/rails/engine.rb:518:in `call'
+  railties (4.2.4) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/alightholder/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
+  /Users/alightholder/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
+  /Users/alightholder/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+
+
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.1ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.4ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.9ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.3ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (124.1ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.3ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (73.9ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.7ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (164.5ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2015-11-07 12:18:00 -0800
+Processing by Devise::SessionsController#new as HTML
+  [1m[35mUser Load (1.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+Redirected to http://localhost:3000/
+Filter chain halted as :require_no_authentication rendered or redirected
+Completed 302 Found in 10ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:18:00 -0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/railties-4.2.4/lib/rails/templates/rails/welcome/index.html.erb (0.1ms)
+Completed 200 OK in 6ms (Views: 5.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:30:39 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (8.8ms)
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 161ms (Views: 150.3ms | ActiveRecord: 7.1ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:33:23 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 215ms (Views: 212.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:33:23 -0800
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-11-07 12:33:23 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 12:33:23 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 12:33:23 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 12:33:23 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 12:33:23 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:33:23 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 12:34:16 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 94ms (Views: 92.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-11-07 12:34:16 -0800
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:34:16 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 12:34:16 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 12:34:16 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:34:16 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 12:34:16 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 12:34:16 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 12:34:18 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.6ms)
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 55ms (Views: 54.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:34:21 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 50ms (Views: 48.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/users/edit" for ::1 at 2015-11-07 12:34:27 -0800
+Processing by Devise::RegistrationsController#edit as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/edit.html.erb within layouts/application (6.9ms)
+Completed 200 OK in 71ms (Views: 67.8ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/users/sign_out" for ::1 at 2015-11-07 12:34:29 -0800
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"n8ZXk/N2Kowmc2yMREF7kxk1yLkMOSr5pqDknHgYsUuRA8Y9GWVsCCgTA9hrz6fuEmqBlTxWYr0fswqWPMMMVw=="}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 14ms (ActiveRecord: 0.8ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:34:29 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 42ms (Views: 41.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:36:54 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 261ms (Views: 249.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:36:54 -0800
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-11-07 12:36:54 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 12:36:54 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 12:36:54 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 12:36:54 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:36:54 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 12:36:54 -0800
+
+
+Started GET "/users/sign_in" for ::1 at 2015-11-07 12:36:57 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (1.1ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/sessions/new.html.erb within layouts/application (33.7ms)
+Completed 200 OK in 100ms (Views: 96.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2015-11-07 12:37:07 -0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"lZT6wKzMihZwvUHeoBQh19S/vtLjrxheXdAbuL9nKvqBwG1Yqor/0V9X2j8ZA8TjAXXvUfqD6gDza/5hmPwsUw==", "user"=>{"email"=>"sidhene@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Log in"}
+  [1m[35mUser Load (1.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["email", "sidhene@gmail.com"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  UPDATE "users" SET "remember_created_at" = $1, "updated_at" = $2 WHERE "users"."id" = $3  [["remember_created_at", "2015-11-07 20:37:08.077190"], ["updated_at", "2015-11-07 20:37:08.078377"], ["id", 1]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mUPDATE "users" SET "current_sign_in_at" = $1, "sign_in_count" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["current_sign_in_at", "2015-11-07 20:37:08.086701"], ["sign_in_count", 2], ["updated_at", "2015-11-07 20:37:08.088377"], ["id", 1]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Redirected to http://localhost:3000/
+Completed 302 Found in 141ms (ActiveRecord: 5.1ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:37:08 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 55ms (Views: 53.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:44:24 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (2.9ms)
+  [1m[35mUser Load (1.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 178ms (Views: 166.6ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-11-07 12:44:25 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 12:44:25 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:44:25 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 12:44:25 -0800
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:44:25 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 12:44:25 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 12:44:25 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 12:51:18 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.5ms)
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 165ms (Views: 156.9ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:51:19 -0800
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-11-07 12:51:19 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 12:51:19 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 12:51:19 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 12:51:19 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 12:51:19 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:51:19 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 12:51:26 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 107ms (Views: 105.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:53:20 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.8ms)
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 149ms (Views: 146.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:53:20 -0800
+
+
+Started GET "/assets/application.self-cb66ff84b2c5ef98323e54754f37f83590c1b774c5365c60a05a992d9b0bdffb.css?body=1" for ::1 at 2015-11-07 12:53:20 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 12:53:20 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 12:53:20 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 12:53:20 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:53:20 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 12:53:20 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 12:54:40 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 67ms (Views: 66.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:54:40 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 12:54:40 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 12:54:40 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:54:40 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 12:54:40 -0800
+
+
+Started GET "/assets/application.self-cb66ff84b2c5ef98323e54754f37f83590c1b774c5365c60a05a992d9b0bdffb.css?body=1" for ::1 at 2015-11-07 12:54:40 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 12:54:40 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 12:54:51 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 63ms (Views: 61.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:54:51 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 12:54:51 -0800
+
+
+Started GET "/assets/application.self-cb66ff84b2c5ef98323e54754f37f83590c1b774c5365c60a05a992d9b0bdffb.css?body=1" for ::1 at 2015-11-07 12:54:51 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 12:54:51 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:54:51 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 12:54:51 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 12:54:51 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 12:55:03 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 57ms (Views: 56.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:55:03 -0800
+
+
+Started GET "/assets/application.self-cb66ff84b2c5ef98323e54754f37f83590c1b774c5365c60a05a992d9b0bdffb.css?body=1" for ::1 at 2015-11-07 12:55:03 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:55:03 -0800
+
+
+Started DELETE "/users/sign_out" for ::1 at 2015-11-07 12:55:24 -0800
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"eIcMwd48br5NyXPvRKGrU/jfoxahT8Ybm8QjLS1Vx6JjH31/3uKWDIJwDxjhzMmKKgeqxq+M8dDJX6d7JLeYlQ=="}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.2ms)[0m  UPDATE "users" SET "remember_created_at" = $1, "updated_at" = $2 WHERE "users"."id" = $3  [["remember_created_at", nil], ["updated_at", "2015-11-07 20:55:24.330478"], ["id", 1]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 16ms (ActiveRecord: 3.0ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:55:24 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 82ms (Views: 81.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:56:49 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 106ms (Views: 105.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-cb66ff84b2c5ef98323e54754f37f83590c1b774c5365c60a05a992d9b0bdffb.css?body=1" for ::1 at 2015-11-07 12:56:49 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 12:56:49 -0800
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:56:49 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 12:56:49 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:56:49 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 12:56:50 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 12:56:50 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 12:59:06 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 68ms (Views: 66.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 12:59:06 -0800
+
+
+Started GET "/assets/application.self-cb66ff84b2c5ef98323e54754f37f83590c1b774c5365c60a05a992d9b0bdffb.css?body=1" for ::1 at 2015-11-07 12:59:06 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 12:59:06 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 12:59:06 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 12:59:06 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 12:59:06 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 12:59:06 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 13:00:01 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 88ms (Views: 87.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 13:00:01 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 13:00:01 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 13:00:01 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 13:00:01 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 13:00:01 -0800
+
+
+Started GET "/assets/application.self-cb66ff84b2c5ef98323e54754f37f83590c1b774c5365c60a05a992d9b0bdffb.css?body=1" for ::1 at 2015-11-07 13:00:01 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 13:00:01 -0800
+
+
+Started GET "/users/sign_up" for ::1 at 2015-11-07 13:00:04 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (0.9ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (19.1ms)
+Completed 200 OK in 100ms (Views: 87.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2015-11-07 13:00:06 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (0.8ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/sessions/new.html.erb within layouts/application (8.6ms)
+Completed 200 OK in 72ms (Views: 68.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2015-11-07 13:00:24 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (0.8ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/sessions/new.html.erb within layouts/application (6.3ms)
+Completed 200 OK in 101ms (Views: 99.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 13:00:24 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 13:00:24 -0800
+
+
+Started GET "/assets/application.self-cb66ff84b2c5ef98323e54754f37f83590c1b774c5365c60a05a992d9b0bdffb.css?body=1" for ::1 at 2015-11-07 13:00:24 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 13:00:24 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 13:00:24 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 13:00:24 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 13:00:24 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 13:31:09 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (1.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 414ms (Views: 398.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-9d0d6c203e0118d1a3a0c4a03412d3e273a9bba0091bc288b5a8b708a25105eb.css?body=1" for ::1 at 2015-11-07 13:31:10 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 13:31:10 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 103ms (Views: 101.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2015-11-07 13:31:15 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (2.2ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (60.0ms)
+Completed 200 OK in 174ms (Views: 130.6ms | ActiveRecord: 10.2ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2015-11-07 13:33:10 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (0.5ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (137.0ms)
+Completed 200 OK in 308ms (Views: 274.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/application.self-00252202411cccddc5f09f6ea2232ea00f71cb453dd9ba892a879ca194f1ccaa.css?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/users/sign_in" for ::1 at 2015-11-07 13:35:23 -0800
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (1.3ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/sessions/new.html.erb within layouts/application (27.5ms)
+Completed 200 OK in 124ms (Views: 108.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for ::1 at 2015-11-07 13:35:34 -0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wTSByx9fx7WKeo/6g7TFtzPnEKgArP/ddRKyKXXVrLMysV+1wR8mIFvQMt+VPP/pKrzlnh2GsD6AksoFnWDWXQ==", "user"=>{"email"=>"sidhene@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[35mUser Load (2.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["email", "sidhene@gmail.com"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  UPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "sign_in_count" = $3, "updated_at" = $4 WHERE "users"."id" = $5  [["last_sign_in_at", "2015-11-07 20:37:08.086701"], ["current_sign_in_at", "2015-11-07 21:35:34.922493"], ["sign_in_count", 3], ["updated_at", "2015-11-07 21:35:34.927475"], ["id", 1]]
+  [1m[36m (2.6ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 221ms (ActiveRecord: 8.2ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 13:35:34 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 64ms (Views: 62.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 13:35:35 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.1ms)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 116ms (Views: 115.1ms | ActiveRecord: 0.5ms)
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20151107185305)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (34.5ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "user_name" character varying, "password" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151107185305"]]
+  [1m[36m (15.8ms)[0m  [1mCOMMIT[0m
+Migrating to CreateFriendLists (20151107185600)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (4.3ms)[0m  [1mCREATE TABLE "friend_lists" ("id" serial primary key, "user_id" integer, "list" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151107185600"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateMessages (20151107190045)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (3.5ms)[0m  [1mCREATE TABLE "messages" ("id" serial primary key, "sender_id" integer, "receiver_id" integer, "body" character varying, "read" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151107190045"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+Migrating to AddDeviseToUsers (20151107195623)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (5.6ms)[0m  [1mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (3.4ms)[0m  ALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "users" ADD "reset_password_sent_at" timestamp
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ADD "remember_created_at" timestamp[0m
+  [1m[35m (3.9ms)[0m  ALTER TABLE "users" ADD "sign_in_count" integer DEFAULT 0 NOT NULL
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "users" ADD "current_sign_in_at" timestamp[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "users" ADD "last_sign_in_at" timestamp
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "users" ADD "current_sign_in_ip" inet[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "users" ADD "last_sign_in_ip" inet
+  [1m[36m (1.1ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20151107195623"]]
+  [1m[35m (10.3ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (3.1ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'friend_lists'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (2.2ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'messages'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (2.0ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
