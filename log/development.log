@@ -735,3 +735,54 @@ Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde
 
 
 Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 13:00:24 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 13:31:09 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (1.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 414ms (Views: 398.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-9d0d6c203e0118d1a3a0c4a03412d3e273a9bba0091bc288b5a8b708a25105eb.css?body=1" for ::1 at 2015-11-07 13:31:10 -0800
+
+
+Started GET "/" for ::1 at 2015-11-07 13:31:10 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 103ms (Views: 101.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2015-11-07 13:31:15 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (2.2ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (60.0ms)
+Completed 200 OK in 174ms (Views: 130.6ms | ActiveRecord: 10.2ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2015-11-07 13:33:10 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (0.5ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (137.0ms)
+Completed 200 OK in 308ms (Views: 274.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/welcome.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/application.self-00252202411cccddc5f09f6ea2232ea00f71cb453dd9ba892a879ca194f1ccaa.css?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/welcome.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-11-07 13:33:10 -0800
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-11-07 13:33:10 -0800
