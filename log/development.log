@@ -182,3 +182,106 @@ ActionController::RoutingError (No route matches [GET] "/users"):
   Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
   Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
   Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (180.8ms)
+
+
+Started GET "/users/sign_up" for ::1 at 2015-11-07 12:17:11 -0800
+Processing by Devise::RegistrationsController#new as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (1.0ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (21.2ms)
+Completed 200 OK in 146ms (Views: 123.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users" for ::1 at 2015-11-07 12:17:28 -0800
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"hSn7oNCIFY3o23U8Ot+WeLbjujf+Hb6BGy5L6ZevTt2L7GoOOptTCea7GmgVUUoFvbzzG85y9sWiPaXj03TzwQ==", "user"=>{"email"=>"sidhene@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mUser Exists (6.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'sidhene@gmail.com' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/shared/_links.html.erb (0.3ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/devise-3.5.2/app/views/devise/registrations/new.html.erb within layouts/application (12.3ms)
+Completed 200 OK in 364ms (Views: 83.3ms | ActiveRecord: 7.1ms)
+
+
+Started POST "/users" for ::1 at 2015-11-07 12:17:43 -0800
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gQtHXnMzWMQkakMmBRgQjmy10lrYNNf59OZCz02upQqPztbwmSAeQCoKLHIqlszzZ+qbduhbn71N9azFCXUYFg==", "user"=>{"email"=>"sidhene@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.7ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'sidhene@gmail.com' LIMIT 1
+  [1m[36mSQL (4.0ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "sidhene@gmail.com"], ["encrypted_password", "$2a$10$jgFjVdrPtH.KwNyhMaKnG.5Oi4WHS6mL8CB7rw7z/7A0nx5TCht5m"], ["created_at", "2015-11-07 20:17:43.909747"], ["updated_at", "2015-11-07 20:17:43.909747"]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (3.7ms)[0m  UPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "last_sign_in_ip" = $3, "current_sign_in_ip" = $4, "sign_in_count" = $5, "updated_at" = $6 WHERE "users"."id" = $7  [["last_sign_in_at", "2015-11-07 20:17:43.921338"], ["current_sign_in_at", "2015-11-07 20:17:43.921338"], ["last_sign_in_ip", "::1/128"], ["current_sign_in_ip", "::1/128"], ["sign_in_count", 1], ["updated_at", "2015-11-07 20:17:43.923412"], ["id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 149ms (ActiveRecord: 10.7ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:17:43 -0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/railties-4.2.4/lib/rails/templates/rails/welcome/index.html.erb (1.4ms)
+Completed 200 OK in 7ms (Views: 6.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/sign_in" for ::1 at 2015-11-07 12:17:51 -0800
+
+ActionController::RoutingError (No route matches [GET] "/sign_in"):
+  actionpack (4.2.4) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.2.1) lib/web_console/middleware.rb:39:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.4) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.4) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.4) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.4) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.4) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.4) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.4) lib/rails/engine.rb:518:in `call'
+  railties (4.2.4) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/alightholder/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
+  /Users/alightholder/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
+  /Users/alightholder/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+
+
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.1ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.4ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.9ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.3ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/actionpack-4.2.4/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (124.1ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.3ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (73.9ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.7ms)
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (164.5ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2015-11-07 12:18:00 -0800
+Processing by Devise::SessionsController#new as HTML
+  [1m[35mUser Load (1.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+Redirected to http://localhost:3000/
+Filter chain halted as :require_no_authentication rendered or redirected
+Completed 302 Found in 10ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:18:00 -0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/alightholder/.rvm/gems/ruby-1.9.3-p551@newgemset/gems/railties-4.2.4/lib/rails/templates/rails/welcome/index.html.erb (0.1ms)
+Completed 200 OK in 6ms (Views: 5.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2015-11-07 12:30:39 -0800
+Processing by WelcomeController#index as HTML
+  Rendered welcome/index.html.erb within layouts/application (8.8ms)
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 161ms (Views: 150.3ms | ActiveRecord: 7.1ms)
