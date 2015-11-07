@@ -1,1 +1,8 @@
-asdf
+<% @messages.each do |message| %>
+  <p><%= message.sender.email %></p>
+<% end %>
+
+
+<form action="/messages"method="post">
+    <input type='submit' value='submit'>
+</form>
