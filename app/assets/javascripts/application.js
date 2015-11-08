@@ -28,8 +28,6 @@ $(document).ready(function() {
     })
 
     .done(function(response){
-      console.log(response)
-      // $('#main').html('asdf')
       $('#main').html(response)
     })
   })

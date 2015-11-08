@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
   end
 
   def meow
-    @messages = Message.where(receiver_id: current_user.id)
+    @messages = Message.where(receiver_id: current_user.id, read: false)
     @friend_list = []
     if FriendList.find_by(user_id: current_user.id)
       friend_list_id = FriendList.find_by(user_id: current_user.id).list

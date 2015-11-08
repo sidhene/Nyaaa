@@ -12,6 +12,7 @@ class MessagesController < ApplicationController
 
   def show
     @message = Message.find(params[:id])
+    @message.update_attribute(:read, true)
     @rand = rand().to_s
     render :layout => false
   end
