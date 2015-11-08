@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20151107195623) do
 
   create_table "friend_lists", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "list"
+    t.string   "list",                    array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

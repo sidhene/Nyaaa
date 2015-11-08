@@ -1,15 +1,26 @@
-<div id='message_list'>
-  <% @messages.each do |message| %>
-    <div id='<%= message.id %>'>
-      <a href="/messages/<%= message.id %>"><%= message.sender.email %></a>
+<div class="container">
+  <div id='message_list' class='row'>
+    <div class='col-md-2'>
+      <% if @messages %>
+        <% @messages.each do |message| %>
+          <div id='<%= message.id %>'>
+            <a href="/messages/<%= message.id %>"><%= message.sender.email %></a>
+          </div>
+        <% end %>
+      <% end %>
     </div>
-  <% end %>
-</div>
 
-<div id='main'>
-  <div id='friend_list'>
-    <form action="/messages"method="post">
-        <input type='submit' value='submit'>
-    </form>
+    <div class='col-md-10' id='main'>
+      <div id='friend_list'>
+        <% if @friend_list %>
+          <% @friend_list.each do |friend| %>
+            <p><%= friend.email %></p>
+          <% end %>
+        <% end %>
+        <form action="/messages"method="post">
+            <input class="btn btn-default" type='submit' value='submit'>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 * {
- /*outline: 1px solid red;*/
+ outline: 1px solid red;
  font-family: sans-serif;
- text-align: center;
+ /*text-align: center;*/
 }
 
 #landing_image {
@@ -11,4 +11,19 @@
 
 #message_list{
   margin-top: 10%;
+/*  text-align: left;
+  width: 20em;
+  display: inline-block;*/
 }
+
+#message_list div {
+  padding: 1em;
+}
+
+/*#main {
+
+  width: 30em;
+
+  display: inline-block;
+  padding-bottom: 30em;
+}*/
