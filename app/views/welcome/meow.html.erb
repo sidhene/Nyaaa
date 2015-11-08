@@ -12,13 +12,13 @@
 
     <div class='col-md-10' id='main'>
       <div id='friend_list'>
-        <% if @friend_list %>
-          <% @friend_list.each do |friend| %>
-            <p><%= friend.email %></p>
-          <% end %>
+        <% if @friend_list.length > 0 %>
+          <form action="/messages"method="post">
+            <% @friend_list.each do |friend| %>
+              <input type='checkbox' name='receiver' value='<%= friend.id %>'><%= friend.email %><br>
+            <% end %>
+          <input class="btn btn-default" type='submit' value='submit'>
         <% end %>
-        <form action="/messages"method="post">
-            <input class="btn btn-default" type='submit' value='submit'>
         </form>
       </div>
     </div>
