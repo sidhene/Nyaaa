@@ -14,3 +14,23 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+  $('#message_list').on('click', 'a', function(event){
+    event.preventDefault();
+
+    var path = $(this).attr('href');
+
+    $.ajax({
+      method: 'GET',
+      url: path,
+      dataType: 'html'
+    })
+
+    .done(function(response){
+      console.log(response)
+      // $('#main').html('asdf')
+      $('#main').html(response)
+    })
+  })
+})
