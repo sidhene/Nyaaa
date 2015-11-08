@@ -27,9 +27,9 @@ ActiveRecord::Schema.define(version: 20151107195623) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.string   "body"
-    t.boolean  "read"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "read",        default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "users", force: :cascade do |t|
