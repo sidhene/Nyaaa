@@ -10,11 +10,8 @@ class WelcomeController < ApplicationController
     if FriendList.find_by(user_id: current_user.id)
       friend_list_id = FriendList.find_by(user_id: current_user.id).list
       friend_list_id.each do |id|
-      @friend_list << User.find(id.to_i)
-    end
-
-
+        @friend_list << User.find(id.to_i)
+      end
     end
   end
-
 end
