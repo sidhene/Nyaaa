@@ -27,3 +27,13 @@
   display: inline-block;
   padding-bottom: 30em;
 }*/
+
+#navbar-brand{
+	width: 10%;
+}
+
+
+#cats_world {
+	max-width: 10%;
+	background-color: red;
+}
