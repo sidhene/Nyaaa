@@ -1,3 +1,7 @@
 * {
  outline: 1px solid red;
 }
+
+#message_list{
+  margin-top: 10%;
+}

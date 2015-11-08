@@ -1,11 +1,15 @@
-<div>
+<div id='message_list'>
   <% @messages.each do |message| %>
-    <p><%= message.sender.email %></p>
+    <div id='<%= message.id %>'>
+      <a href="/messages/<%= message.id %>"><%= message.sender.email %></a>
+    </div>
   <% end %>
 </div>
 
-<div>
-  <form action="/messages"method="post">
-      <input type='submit' value='submit'>
-  </form>
+<div id='main'>
+  <div id='friend_list'>
+    <form action="/messages"method="post">
+        <input type='submit' value='submit'>
+    </form>
+  </div>
 </div>
