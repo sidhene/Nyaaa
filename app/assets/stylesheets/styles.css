@@ -4,6 +4,7 @@
  text-align: center;
 }
 
+
 #landing_image {
   height: 100px;
   width: 100px;
@@ -13,12 +14,18 @@
   margin-top: 10%;
 }
 
-#navbar-brand{
-	width: 10%;
+.navbar-brand{
+	width: 110%;
 }
 
 
-#cats_world {
-	max-width: 10%;
-	background-color: red;
+.sleepy_cat {
+	padding-top: 200px;
+	padding-bottom: 20px;
+	width: 50%;
 }
+
+.navbar-link {
+	font-size: 2em;
+}
+
