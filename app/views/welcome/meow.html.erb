@@ -1,0 +1,26 @@
+<div class="container">
+  <div id='message_list' class='row'>
+    <div class='col-md-2'>
+      <% if @messages %>
+        <% @messages.each do |message| %>
+          <div id='<%= message.id %>'>
+            <a href="/messages/<%= message.id %>"><%= message.sender.email %></a>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class='col-md-10' id='main'>
+      <div id='friend_list'>
+        <% if @friend_list.length > 0 %>
+          <form action="/messages"method="post">
+            <% @friend_list.each do |friend| %>
+              <input type='checkbox' name='receiver' value='<%= friend.id %>'><%= friend.email %><br>
+            <% end %>
+          <input class="btn btn-default" type='submit' value='submit'>
+        <% end %>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

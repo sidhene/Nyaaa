@@ -1,0 +1,55 @@
+* {
+ /*outline: 1px solid red;*/
+ font-family: sans-serif;
+ text-align: center;
+}
+
+
+#landing_image {
+  height: 100px;
+  width: 100px;
+}
+
+#message_list{
+  margin-top: 20%;
+/*  text-align: left;
+  width: 20em;
+  display: inline-block;*/
+}
+
+
+.navbar-brand{
+	width: 110%;
+}
+
+
+.sleepy_cat {
+	/*padding-top: 200px;*/
+	padding-bottom: 20px;
+	width: 50%;
+}
+
+.navbar-link {
+	font-size: 2em;
+}
+
+.new_user{
+  margin-top: 10%;
+}
+
+#message_list div {
+  padding: 1em;
+}
+
+/*#main {
+
+  width: 30em;
+
+  display: inline-block;
+  padding-bottom: 30em;
+}*/
+
+
+
+
+
